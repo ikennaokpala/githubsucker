@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(File.dirname(__FILE__) + '/lib/git')
+
+def red_alert message
+  "\033[31m #{message} \033[0m\n"
+end
+
+def green_alert message
+  "\033[32m #{message} \033[0m\n"
+end
+
+unless ARGV.first
+  puts green_alert "Please provide a project name! "
+  exit 1
+end
