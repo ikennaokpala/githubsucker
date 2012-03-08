@@ -20,11 +20,10 @@ module GitHubSucker
     end
     
     private
-
-    def page_doc(url)
-      @browser.url = url 
-      @browser.perform
-      Nokogiri::HTML(@browser.body_str)
-    end   
+      def page_doc(url)
+        @browser.url = url 
+        @browser.perform
+        Nokogiri::HTML(@browser.body_str)
+      end   
   end
 end
