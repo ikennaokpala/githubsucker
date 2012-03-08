@@ -1,14 +1,18 @@
 #!/usr/bin/env ruby
 
+require "rubygems"
+
+Dir['**/lib/*.rb'].each { |fn| require_relative fn }
+
 def red_alert message
   "\033[31m #{message} \033[0m\n"
 end
 
-def green_alert message
-  "\033[32m #{message} \033[0m\n"
-end
 
-unless ARGV.first
+project = ARGV.first
+
+unless project
   puts red_alert :"Please provide a project name! "
   exit 1
 end
+
