@@ -9,10 +9,11 @@ def red_alert message
 end
 
 
-project = ARGV.first
+project_name = ARGV.first
 
-unless project
+unless project_name
   puts red_alert :"Please provide a project name! "
   exit 1
 end
 
+GitHubSucker::DashBoard.cockpit(project_name)
