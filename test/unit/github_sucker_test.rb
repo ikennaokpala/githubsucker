@@ -14,7 +14,7 @@ class GitHubSuckerTest < MiniTest::Unit::TestCase
 
   def test_invalid_project_info_search
     search_result = @scrapper.project_info_search("timburks/nu")
-    assert_nil search_result
+    assert_empty search_result
   end
 
   def  test_page_doc

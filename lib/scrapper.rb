@@ -13,8 +13,8 @@ module GitHubSucker
     def project_info_search(repo_name)
       begin
         url = "#{BASE_URL}/search?type=Repositories&q=#{repo_name}&repo=&langOverride=&x=14&y=9&start_value=1"
-        tmp = page_doc(url).search("//div[@id='code_search_results']/div[@class='results_and_sidebar']/div[@class='results']/div[1]/h2/a").inner_html.split('/')
-        return result = "#{tmp[0].strip}/#{tmp[1].strip}"
+        result = page_doc(url).search("//div[@id='code_search_results']/div[@class='results_and_sidebar']/div[@class='results']/div[1]/h2/a").inner_html.gsub(" ", "")
+        return result 
       rescue => e
       end
     end
