@@ -33,15 +33,15 @@ module GitHubSucker
         repositories = Octokit.repositories(fk.owner.login)
         repositories.each do |repo|
 
-          repo.language && repo.language.downcase == 'ruby' ? ruby_projects = ruby_projects + 1 : repo.language && repo.language.downcase == 'javascript' ? js_projects = js_projects + 1 : nil
+          repo.language && repo.language.downcase == 'ruby' ? ruby_projects += 1 : repo.language && repo.language.downcase == 'javascript' ? js_projects += 1 : nil
 
-          repo.fork ? forked = forked + 1 : original = original + 1
+          repo.fork ? forked += 1 : original +=  1
         end
 
         users << {:name => fk.owner.login, :num_repos => repositories.size, :js_projects => js_projects, :ruby_projects => ruby_projects, :forked => forked, :original => original}
 
       end
-      users.sort_by!{|u| :original}.reverse!
+      users.sort_by!{|u| u["original"]}.reverse!
     end 
   end
 end
