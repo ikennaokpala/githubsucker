@@ -23,7 +23,7 @@ class GitHubSuckerTest < MiniTest::Unit::TestCase
   end
 
   def test_rank_octocats 
-    octocats = @dashboard.rank_octocats("timburks/nu")
+    octocats = @dashboard.send(:rank_octocats, "timburks/nu")
     assert_kind_of Enumerable, octocats
   end
 
@@ -33,8 +33,6 @@ class GitHubSuckerTest < MiniTest::Unit::TestCase
   end
 
   def test_nil_project_name_octocats
-    assert_raises(Octokit::NotFound) do
-      @dashboard.octocats("timburks/nu")
-    end
+   assert_nil  @dashboard.octocats("timburks/nu")
   end
 end
