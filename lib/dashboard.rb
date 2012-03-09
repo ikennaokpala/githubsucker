@@ -16,7 +16,7 @@ module GitHubSucker
     def self.octocats(project_name)      
       project = @@github_scrapper.project_info_search(project_name)      
       if project.nil? || project.empty?
-        puts "Project does not exist! Try again!"
+        raise "Project does not exist! Try again!"
       else
         rank_octocats project
       end

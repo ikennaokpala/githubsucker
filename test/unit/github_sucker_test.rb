@@ -33,6 +33,8 @@ class GitHubSuckerTest < MiniTest::Unit::TestCase
   end
 
   def test_nil_project_name_octocats
-   assert_nil  @dashboard.octocats("timburks/nu")
+    assert_raises(RuntimeError) do
+      @dashboard.octocats("timburks/nu")
+    end
   end
 end
