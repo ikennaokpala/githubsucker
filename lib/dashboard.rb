@@ -3,7 +3,7 @@ require "octokit"
 
 module GitHubSucker 
   module DashBoard
-    @@git = GitHubSucker::Scrapper.new
+    @@github_scrapper = GitHubSucker::Scrapper.new
 
     def self.cockpit(project_name)
 
@@ -14,9 +14,9 @@ module GitHubSucker
     end
 
     def self.octocats(project_name)      
-      project = @@git.project_info_search(project_name)      
-      if project_name.nil?
-        puts red_alert "Project does not exist! Try again!"
+      project = @@github_scrapper.project_info_search(project_name)      
+      if project.nil? || project.empty?
+        puts "Project does not exist! Try again!"
       else
         rank_octocats project
       end
@@ -26,8 +26,6 @@ module GitHubSucker
     def self.rank_octocats(project_name)
       users = []
       Octokit.forks(project_name).each do |fk|
-        # look up the forked owner
-        # init this crap
         js_projects = 0
         ruby_projects = 0
         original = 0
@@ -43,7 +41,6 @@ module GitHubSucker
         users << {:name => fk.owner.login, :num_repos => repositories.size, :js_projects => js_projects, :ruby_projects => ruby_projects, :forked => forked, :original => original}
 
       end
-      #puts users
       users.sort_by!{|u| :original}.reverse!
     end 
   end
