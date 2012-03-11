@@ -16,3 +16,7 @@ criteria. The higher each one numbers are the better fit they would be.
 * number of orignal or forked projects they have
 4. Output the information in a format that makes it easy to accomplish the task
 described above.
+
+## Requirement (optional though !!)
+
+You may need a large screen (27") to view the results better
