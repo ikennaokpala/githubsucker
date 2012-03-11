@@ -7,9 +7,9 @@ module GitHubSucker
 
     def self.cockpit(project_name)
 
-      printf "%12s%18s%18s%18s%20s\n", "User", "Own Projects", "Forked Projects", "Ruby Projects", "Javascript Projects"
+      printf "%12s%18s%18s%18s%18s%18s%20s\n", "User", "Repos", "Own Projects", "Forked Projects", "Scala Projects","Ruby Projects", "Javascript Projects"
       octocats(project_name).each do |i|
-        printf "%13s%14s%14s%14s%14s\n", i["name"], i["original"], i["forked"], i["ruby_projects"], i["js_projects"]
+        printf "%13s%14s%14s%14s%18s%18s%18s\n", i["name"], i["num_repos"], i["original"], i["forked"], i["scala_projects"],i["ruby_projects"], i["js_projects"]
       end
     end
 
@@ -24,17 +24,21 @@ module GitHubSucker
 
     private 
     def self.rank_octocats(project_name)
-      users = Hash.new
+      users = []
       Octokit.forks(project_name).each do |fk|
+        user = Hash.new
         repositories = Octokit.repositories(fk.owner.login)
-        users["name"] = fk.owner.login
-        users["num_repos"] = repositories.size
-        users["js_projects"] = repositories.map{|r| r.language && r.language.downcase == "javascript" ? 1 : nil }.compact.size
-        users["ruby_projects"] = repositories.map{|r| r.language && r.language.downcase == "ruby"? 1 : nil}.compact.size
-        users["forked"] = repositories.map{|r| r.fork ? 1 : nil}.compact.size
-        users["original"] = repositories.map{|r| !r.fork ? 1 : nil}.compact.size
+        user["name"] = fk.owner.login
+        user["num_repos"] = repositories.size
+        user["js_projects"] = repositories.map{|repo| repo.language && repo.language.downcase == "javascript" ? 1 : nil }.compact.size
+        user ["scala_projects"] = repositories.map{|repo| repo.language && repo.language.downcase == "scala" ? 1 : nil }.compact.size
+        user["ruby_projects"] =  repositories.map{|repo| repo.language && repo.language.downcase == "ruby"? 1 : nil}.compact.size
+        user["forked"] = repositories.map{|repo| repo.fork ? 1 : nil}.compact.size
+        user["original"] = repositories.map{|repo| !repo.fork ? 1 : nil}.compact.size
+
+        users << user
       end
-      [users]#.sort_by!{|u| u["original"]}.reverse!
+      users.sort_by!{|u| u["forked"]}.reverse!
     end 
   end
 end
