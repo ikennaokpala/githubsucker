@@ -24,5 +24,5 @@ You may need a large screen (27") to view the results better
 ### To run this sucker !
 
 1. Clone and Navigate to this project's root dir
-2. ./githubsucker <project_name>
+2. ./githubsucker \<project_name\>
 
