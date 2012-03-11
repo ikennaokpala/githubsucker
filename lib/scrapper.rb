@@ -6,7 +6,6 @@ BASE_URL = "https://github.com"
 module GitHubSucker
   class Scrapper
     def initialize
-      @users = []
       @browser = Curl::Easy.new
     end
 
