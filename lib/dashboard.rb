@@ -6,7 +6,6 @@ module GitHubSucker
     @@github_scrapper = GitHubSucker::Scrapper.new
 
     def self.cockpit(project_name)
-
       printf "%12s%18s%18s%18s%18s%18s%20s\n", "User", "Repos", "Own Projects", "Forked Projects", "Scala Projects","Ruby Projects", "Javascript Projects"
       octocats(project_name).each do |o|
         printf "%13s%14s%14s%14s%18s%18s%18s\n", o["name"], o["num_repos"], o["original"], o["forked"], o["scala_projects"], o["ruby_projects"], o["js_projects"]
