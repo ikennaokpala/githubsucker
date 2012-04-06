@@ -29,15 +29,15 @@ module GitHubSucker
         repositories = Octokit.repositories(fk.owner.login)
         octocat["name"] = fk.owner.login
         octocat["num_repos"] = repositories.size
-        octocat["js_projects"] = repositories.select{|repo| repo.language && repo.language.downcase == "javascript" ? 1 : nil }.size
-        octocat ["scala_projects"] = repositories.select{|repo| repo.language && repo.language.downcase == "scala" ? 1 : nil }.size
-        octocat["ruby_projects"] =  repositories.select{|repo| repo.language && repo.language.downcase == "ruby"? 1 : nil}.size
-        octocat["forked"] = repositories.select{|repo| repo.fork ? 1 : nil}.size
-        octocat["original"] = repositories.select{|repo| !repo.fork ? 1 : nil}.size
+        octocat["js_projects"] = repositories.select{|repo| repo.language && repo.language.downcase == "javascript"}.size
+        octocat ["scala_projects"] = repositories.select{|repo| repo.language && repo.language.downcase == "scala"}.size
+        octocat["ruby_projects"] =  repositories.select{|repo| repo.language && repo.language.downcase == "ruby"}.size
+        octocat["forked"] = repositories.select{|repo| repo.fork}.size
+        octocat["original"] = repositories.select{|repo| !repo.fork}.size
 
         octocats << octocat
       end
-      octocats.sort_by!{|u| u["ruby_projects"]}.reverse!
+      octocats.sort_by!{|u| u["forked"]}.reverse!
     end 
   end
 end
